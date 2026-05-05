@@ -37,10 +37,14 @@
                                 <td><span class="badge bg-secondary">{{ $item->badge_text }}</span></td>
                                 <td class="text-white fw-bold">{{ $item->heading }}</td>
                                 <td><span class="badge bg-info">{{ count($item->bullet_points ?? []) }} Items</span></td>
-                                <td>
-                                    <span class="badge {{ $item->is_active ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $item->is_active ? 'Active' : 'Inactive' }}
-                                    </span>
+                                <td class="text-center">
+                                    <form action="{{ route('admin.who-we-are.toggle-status', $item->id) }}" method="POST">
+                                        @csrf @method('PATCH')
+                                        <div class="form-check form-switch d-inline-block">
+                                            <input class="form-check-input" type="checkbox" onchange="this.form.submit()"
+                                                {{ $item->is_active ? 'checked' : '' }}>
+                                        </div>
+                                    </form>
                                 </td>
                                 <td class="text-end">
                                     <div class="d-flex gap-2 justify-content-end">
@@ -129,55 +133,55 @@
     </div>
 @endsection
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<script src="{{ asset('assets/js/crud-helper.js') }}"></script>
 
-{{-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script> --}}
-<script>
-    // let editorInstance;
-    // ClassicEditor.create(document.querySelector('#editor')).then(editor => { editorInstance = editor; });
+@push('script')
+    <script src="{{ asset('assets/js/crud-helper.js') }}"></script>
+    <script>
+        // let editorInstance;
+        // ClassicEditor.create(document.querySelector('#editor')).then(editor => { editorInstance = editor; });
 
-    $(document).ready(function() {
-        // Add Bullet Row
-        $(document).on('click', '#add-bullet', function() {
-            $('#bullet-container').append(`
+        $(document).ready(function() {
+            // Add Bullet Row
+            $(document).on('click', '#add-bullet', function() {
+                $('#bullet-container').append(`
                 <div class="input-group mb-2 bullet-row">
                     <input type="text" name="bullet_points[]" class="form-control" placeholder="Enter feature...">
                     <button class="btn btn-outline-danger remove-bullet" type="button"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             `);
-        });
+            });
 
-        // Remove Bullet Row
-        $(document).on('click', '.remove-bullet', function() {
-            if ($('.bullet-row').length > 1) $(this).closest('.bullet-row').remove();
-        });
+            // Remove Bullet Row
+            $(document).on('click', '.remove-bullet', function() {
+                if ($('.bullet-row').length > 1) $(this).closest('.bullet-row').remove();
+            });
 
-        // Fill Modal Override for Bullets and Editor
-        $(document).on('click', '[data-role="fill-modal"]', function() {
-            const data = $(this).data();
+            // Fill Modal Override for Bullets and Editor
+            $(document).on('click', '[data-role="fill-modal"]', function() {
+                const data = $(this).data();
 
-            // Set CKEditor content
-            // if(editorInstance) {
-            //     editorInstance.setData(data.main_content || '');
-            // }
+                // Set CKEditor content
+                // if(editorInstance) {
+                //     editorInstance.setData(data.main_content || '');
+                // }
 
-            // Handle Bullet Points
-            $('#bullet-container').html('');
-            let bullets = data.bullets ? (typeof data.bullets === 'string' ? JSON.parse(data.bullets) :
-                data.bullets) : [''];
+                // Handle Bullet Points
+                $('#bullet-container').html('');
+                let bullets = data.bullets ? (typeof data.bullets === 'string' ? JSON.parse(data.bullets) :
+                    data.bullets) : [''];
 
-            if (bullets.length === 0) bullets = [''];
+                if (bullets.length === 0) bullets = [''];
 
-            bullets.forEach(val => {
-                $('#bullet-container').append(`
+                bullets.forEach(val => {
+                    $('#bullet-container').append(`
                     <div class="input-group mb-2 bullet-row">
                         <input type="text" name="bullet_points[]" class="form-control" value="${val}" placeholder="Enter feature...">
                         <button class="btn btn-outline-danger remove-bullet" type="button"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 `);
+                });
             });
         });
-    });
-</script>
+    </script>
+@endpush

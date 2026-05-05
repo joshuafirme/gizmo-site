@@ -13,7 +13,8 @@ class AboutUs extends Model
 
     protected $fillable = [
         'section_title',
-        'json_content'
+        'json_content',
+        'is_active'
     ];
 
     protected $casts = [

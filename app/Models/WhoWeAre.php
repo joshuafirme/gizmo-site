@@ -15,7 +15,8 @@ class WhoWeAre extends Model
         'badge_text',
         'heading',
         'main_content',
-        'bullet_points'
+        'bullet_points',
+        'is_active'
     ];
 
     protected $casts = [

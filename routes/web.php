@@ -1,13 +1,18 @@
 <?php
 
 use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\ClientReviewController;
+use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductSubcategoryController;
 use App\Http\Controllers\Admin\SystemSettingController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WhoWeAreController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,11 +27,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('site.main');
-});
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/products', [PageController::class, 'products'])->name('products');
 
 Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AdminAuthController::class, 'login'])->name('login.submit');
+    Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+    Route::patch('messages/{message}/toggle-read', [ContactMessageController::class, 'toggleRead'])->name('messages.toggle-read');
+    Route::resource('messages', ContactMessageController::class)->only(['index', 'destroy']);
 
     Route::patch('categories/{category}/toggle-status', [ProductCategoryController::class, 'toggleStatus'])
         ->name('categories.toggle-status');
@@ -46,21 +59,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('client-reviews/{slider}/toggle-status', [ClientReviewController::class, 'toggleStatus'])->name('client-reviews.toggle-status');
     Route::resource('client-reviews', ClientReviewController::class)->except(['create', 'show', 'edit']);
 
+    Route::patch('who-we-are/toggle-status/{id}', [WhoWeAreController::class, 'toggleStatus'])->name('who-we-are.toggle-status');
     Route::resource('who-we-are', WhoWeAreController::class)->except(['create', 'show', 'edit']);
     Route::resource('about-us', AboutUsController::class)->except(['create', 'show', 'edit']);
 
     Route::get('settings', [SystemSettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [SystemSettingController::class, 'store'])->name('settings.store');
+
+    Route::resource('users', UserController::class)->except(['create', 'show', 'edit']);
 });
 
+use App\Http\Controllers\ContactController;
 
-Route::get('/admin', function () {
+// Public form submission route
+Route::post('/contact/submit', [ContactController::class, 'store'])->name('contact.submit');
+
+Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
-
-
-
-
-Route::get('/{any}', function () {
-    return view('main');
-})->where('any', '.*');

@@ -14,5 +14,6 @@
         </div>
 
         @yield('panel')
+        
     </div>
 @endsection

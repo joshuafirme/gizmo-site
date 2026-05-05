@@ -37,7 +37,7 @@ class WhoWeAreController extends Controller
         }
     }
 
-    public function update(Request $request, WhoWeAre $about)
+    public function update(Request $request, $id)
     {
         try {
             $request->validate([
@@ -45,11 +45,11 @@ class WhoWeAreController extends Controller
                 'main_content' => 'required|string',
             ]);
 
-            $data = $request->all();
+            $data = $request->except(['_method', '_token']);
             $data['bullet_points'] = $request->bullet_points ? array_filter($request->bullet_points) : [];
             $data['is_active'] = $request->has('is_active');
 
-            $about->update($data);
+            WhoWeAre::where('id', $id)->update($data);
             return back()->with('success', 'About section updated.');
         } catch (\Exception $e) {
 
@@ -57,6 +57,20 @@ class WhoWeAreController extends Controller
 
             return redirect()->back()->with('danger', $error_message);
         }
+    }
+
+    public function toggleStatus(WhoWeAre $mdl, $id)
+    {
+        // Flip the boolean value
+        $mdl = $mdl::find($id);
+        $mdl->is_active = !$mdl->is_active;
+        $mdl->save();
+
+        // Dynamic success message based on the new state
+        $statusWord = $mdl->is_active ? 'enabled' : 'disabled';
+
+        return redirect()->back()
+            ->with('success', "Data has been {$statusWord} successfully.");
     }
 
     public function destroy(WhoWeAre $about)

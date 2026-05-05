@@ -126,44 +126,46 @@
         </div>
     </div>
 @endsection
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<script src="{{ asset('assets/js/crud-helper.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        function createValueRow(val = '') {
-            return `
+
+@push('script')
+    <script src="{{ asset('assets/js/crud-helper.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            function createValueRow(val = '') {
+                return `
                 <div class="input-group mb-2 value-row">
                     <input type="text" name="values[]" class="form-control" value="${val}" placeholder="e.g. Integrity">
                     <button class="btn btn-outline-danger remove-value" type="button"><i class="fa-solid fa-xmark"></i></button>
                 </div>`;
-        }
-
-        $('#add-value').click(function() {
-            $('#values-container').append(createValueRow());
-        });
-
-        $(document).on('click', '.remove-value', function() {
-            $(this).closest('.value-row').remove();
-        });
-
-        // Override fill-modal for JSON values
-        $(document).on('click', '[data-role="fill-modal"]', function() {
-            const data = $(this).data();
-            $('#values-container').html('');
-
-            let values = [];
-            try {
-                values = typeof data.values === 'string' ? JSON.parse(data.values) : data.values;
-            } catch (e) {
-                values = [];
             }
 
-            if (!values || values.length === 0) values = [''];
+            $('#add-value').click(function() {
+                $('#values-container').append(createValueRow());
+            });
 
-            values.forEach(v => {
-                $('#values-container').append(createValueRow(v));
+            $(document).on('click', '.remove-value', function() {
+                $(this).closest('.value-row').remove();
+            });
+
+            // Override fill-modal for JSON values
+            $(document).on('click', '[data-role="fill-modal"]', function() {
+                const data = $(this).data();
+                $('#values-container').html('');
+
+                let values = [];
+                try {
+                    values = typeof data.values === 'string' ? JSON.parse(data.values) : data.values;
+                } catch (e) {
+                    values = [];
+                }
+
+                if (!values || values.length === 0) values = [''];
+
+                values.forEach(v => {
+                    $('#values-container').append(createValueRow(v));
+                });
             });
         });
-    });
-</script>
+    </script>
+@endpush

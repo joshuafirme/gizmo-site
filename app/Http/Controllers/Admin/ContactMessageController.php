@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\ContactMessage;
+use Illuminate\Http\Request;
+
+class ContactMessageController extends Controller
+{
+    public function index()
+    {
+        // Fetch messages, newest first
+        $messages = ContactMessage::latest()->paginate(15);
+
+        // Count unread messages for a quick badge indicator
+        $unreadCount = ContactMessage::where('is_read', false)->count();
+
+        return view('admin.contact-messages.list', compact('messages', 'unreadCount'));
+    }
+
+    public function toggleRead(ContactMessage $message)
+    {
+        $message->is_read = !$message->is_read;
+        $message->save();
+
+        $status = $message->is_read ? 'read' : 'unread';
+        return back()->with('success', "Message marked as {$status}.");
+    }
+
+    public function destroy(ContactMessage $message)
+    {
+        $message->delete();
+        return back()->with('success', 'Message deleted successfully.');
+    }
+}

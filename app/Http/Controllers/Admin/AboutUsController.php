@@ -43,7 +43,7 @@ class AboutUsController extends Controller
         }
     }
 
-    public function update(Request $request, AboutUs $aboutUs)
+    public function update(Request $request, $id)
     {
         try {
             $request->validate([
@@ -52,7 +52,7 @@ class AboutUsController extends Controller
                 'vision' => 'required|string',
             ]);
 
-            $aboutUs->update([
+            AboutUs::where('id', $id)->update([
                 'section_title' => $request->section_title,
                 'is_active' => $request->has('is_active'),
                 'json_content' => [

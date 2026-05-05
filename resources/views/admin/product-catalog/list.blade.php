@@ -168,7 +168,6 @@
         </div>
     </div>
 @endsection
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<script src="{{asset('assets/js/crud-helper.js')}}"></script>
+@push('script')
+    <script src="{{ asset('assets/js/crud-helper.js') }}"></script>
+@endpush
