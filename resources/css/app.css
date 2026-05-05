@@ -1,0 +1,183 @@
+/* Primary Button Override */
+.btn-primary {
+    background-color: #F56620 !important;
+    /* Base color */
+    border-color: #F56620 !important;
+    /* Same as background */
+    color: #ffffff !important;
+    /* Text color */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover / Focus State */
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #d24c19 !important;
+    /* Slightly darker for hover */
+    border-color: #b84316 !important;
+    color: #ffffff !important;
+}
+
+/* Active / Clicked State */
+.btn-primary:active,
+.btn-primary.active,
+.show>.btn-primary.dropdown-toggle {
+    background-color: #b84316 !important;
+    /* Even darker for active */
+    border-color: #9c3613 !important;
+    color: #ffffff !important;
+}
+
+/* Optional: Secondary Buttons to match primary theme */
+.btn-secondary {
+    background-color: #F56620 !important;
+    border-color: #F56620 !important;
+    color: #ffffff !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: #d24c19 !important;
+    border-color: #b84316 !important;
+}
+
+.btn-secondary:active,
+.btn-secondary.active {
+    background-color: #b84316 !important;
+    border-color: #9c3613 !important;
+}
+
+.bg--primary {
+    background-color: #d24c19 !important;
+
+}
+
+
+.navbar-nav .nav-link {
+    transition: all 0.2s ease-in-out;
+    text-decoration: none !important;
+    font-size: 14px !important;
+}
+
+.text--primary {
+    color: #F56620 !important;
+}
+
+.active {
+    color: #F56620 !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #F56620;
+    /* Bootstrap primary */
+    text-decoration: underline;
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: 600;
+    border-bottom: 2px solid #F56620;
+}
+
+.navbar-brand img {
+    object-fit: contain;
+}
+
+/* Default nav links */
+.nav-link {
+    color: #F56620 !important;
+}
+
+/* Hover */
+.nav-link:hover,
+.nav-link:focus {
+    color: #d24c19 !important;
+}
+
+/* Active nav link */
+.nav-link.active {
+    color: #b84316 !important;
+    font-weight: 500;
+}
+
+/* Tab links */
+.nav-tabs .nav-link {
+    color: #F56620 !important;
+    border: 1px solid transparent;
+}
+
+/* Hover */
+.nav-tabs .nav-link:hover {
+    border-color: #f3a07a #f3a07a #dee2e6;
+    color: #d24c19 !important;
+}
+
+/* Active tab */
+.nav-tabs .nav-link.active {
+    color: #ffffff !important;
+    background-color: #F56620 !important;
+    border-color: #F56620 #F56620 #ffffff !important;
+}
+
+/* Default pill */
+.nav-pills .nav-link {
+    color: #F56620 !important;
+}
+
+/* Active pill */
+.nav-pills .nav-link.active {
+    background-color: #F56620 !important;
+    color: #ffffff !important;
+}
+
+/* Hover */
+.nav-pills .nav-link:hover {
+    /* color: #d24c19 !important; */
+}
+
+.mt-200 {
+    margin-top: 200px !important;
+}
+
+.container h3 {
+    margin-bottom: 20px !important;
+}
+
+.nav-pills .nav-link {
+    border: none !important;
+}
+
+.card .card-img-top {
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Default page link */
+.pagination .page-link {
+    color: #F56620;
+}
+
+/* Hover state */
+.pagination .page-link:hover {
+    color: #ffffff;
+    background-color: #F56620;
+    border-color: #F56620;
+}
+
+/* Active page */
+.pagination .page-item.active .page-link {
+    background-color: #F56620;
+    border-color: #F56620;
+    color: #ffffff;
+}
+
+/* Disabled state (optional tweak) */
+.pagination .page-item.disabled .page-link {
+    color: #cccccc;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+/* Focus state (removes blue glow and applies your color) */
+.pagination .page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(245, 102, 32, 0.25);
+}
