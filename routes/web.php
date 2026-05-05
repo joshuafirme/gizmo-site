@@ -33,10 +33,13 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/products', [PageController::class, 'products'])->name('products');
 
 Route::prefix('admin')->name('admin.')->group(function () {
-
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AdminAuthController::class, 'login'])->name('login.submit');
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
+});
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+
 
     Route::patch('messages/{message}/toggle-read', [ContactMessageController::class, 'toggleRead'])->name('messages.toggle-read');
     Route::resource('messages', ContactMessageController::class)->only(['index', 'destroy']);
