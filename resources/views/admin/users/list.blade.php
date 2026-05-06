@@ -85,7 +85,7 @@
                                             data-module="User" data-method="PUT"
                                             data-action="{{ route('admin.users.update', $user->id) }}"
                                             data-name="{{ $user->name }}" data-email="{{ $user->email }}"
-                                            data-role="{{ $user->role }}">
+                                            data-role_name="{{ $user->role_name }}">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
                                         @if (auth()->id() !== $user->id)
@@ -137,7 +137,7 @@
                         <div class="mb-3">
                             <label class="form-label small text-muted">Access Role <span
                                     class="text-danger">*</span></label>
-                            <select name="role_name" id="role" class="form-select text-white" required>
+                            <select name="role_name" id="role_name" class="form-select text-white" required>
                                 <option value="user">Standard User</option>
                                 <option value="content_manager">Content Manager</option>
                                 <option value="web_master">Web Master</option>
