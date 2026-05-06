@@ -16,11 +16,14 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#main-nav" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true">
     @yield('content')
+    @stack('script')
+
 </body>
 
 </html>

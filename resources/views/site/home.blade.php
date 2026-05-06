@@ -297,18 +297,23 @@
                                 aria-label="Close"></button>
                         </div>
                     @endif
+                    @error('captcha')
+                        <div class="alert alert-danger mb-4 border-0" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation me-2"></i> {{ $message }}
+                        </div>
+                    @enderror
 
-                    <form action="{{ route('contact.submit') }}" method="POST">
+                    <form id="contactForm" action="{{ route('contact.submit') }}" method="POST">
                         @csrf
+
+                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label text-muted small">Full Name</label>
                                 <input type="text" name="name"
                                     class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
                                     required placeholder="John Doe">
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
 
                             <div class="col-md-6">
@@ -316,9 +321,6 @@
                                 <input type="email" name="email"
                                     class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
                                     required placeholder="john@company.com">
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
 
                             <div class="col-md-12">
@@ -326,18 +328,12 @@
                                 <input type="text" name="subject"
                                     class="form-control @error('subject') is-invalid @enderror"
                                     value="{{ old('subject') }}" placeholder="Organization Ltd.">
-                                @error('subject')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
 
                             <div class="col-md-12">
                                 <label class="form-label text-muted small">Hardware Requirements</label>
                                 <textarea name="message" class="form-control @error('message') is-invalid @enderror" rows="4" required
-                                    placeholder="Tell us about the servers, computers, or network gear you need...">{{ old('message') }}</textarea>
-                                @error('message')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                    placeholder="Tell us what you need...">{{ old('message') }}</textarea>
                             </div>
 
                             <div class="col-12 mt-4">
@@ -353,3 +349,25 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site') }}"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop normal submission
+
+            // Execute reCAPTCHA
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ config('services.recaptcha.site') }}', {
+                    action: 'submit_contact_form'
+                }).then(function(token) {
+                    // Add token to hidden field
+                    document.getElementById('g-recaptcha-response').value = token;
+
+                    // Submit the form programmatically
+                    document.getElementById('contactForm').submit();
+                });
+            });
+        });
+    </script>
+@endpush
