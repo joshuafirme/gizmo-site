@@ -14,6 +14,7 @@ class SystemSetting extends Model
         'description',
         'version',
         'logo_path',
+        'favicon_path',
         'contact_email',
         'contact_phone',
     ];

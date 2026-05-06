@@ -10,6 +10,16 @@
     <meta name="description" content="@yield('seo_description', $settings->description ?? 'Global supplier of enterprise-grade hardware, servers, and networking equipment.')">
     <meta name="author" content="{{ $settings->app_name ?? 'Gizmo Systems' }}">
 
+    @if (!empty($settings->favicon_path))
+        <!-- Standard Favicon -->
+        <link rel="icon" href="{{ asset('storage/' . $settings->favicon_path) }}" type="image/png">
+        <!-- Apple Touch Icon (For iOS Home Screens) -->
+        <link rel="apple-touch-icon" href="{{ asset('storage/' . $settings->favicon_path) }}">
+    @else
+        <!-- Fallback if no favicon is uploaded (place a default favicon.ico in your public folder) -->
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    @endif
+
     <!-- Canonical URL (Crucial for SEO) -->
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
 

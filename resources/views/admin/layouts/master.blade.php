@@ -7,6 +7,16 @@
     <!-- Dynamic Title -->
     <title>@yield('title', 'Enterprise IT Infrastructure') | {{ $settings->app_name ?? 'Gizmo Systems' }}</title>
 
+    @if (!empty($settings->favicon_path))
+        <!-- Standard Favicon -->
+        <link rel="icon" href="{{ asset('storage/' . $settings->favicon_path) }}" type="image/png">
+        <!-- Apple Touch Icon (For iOS Home Screens) -->
+        <link rel="apple-touch-icon" href="{{ asset('storage/' . $settings->favicon_path) }}">
+    @else
+        <!-- Fallback if no favicon is uploaded (place a default favicon.ico in your public folder) -->
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    @endif
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 

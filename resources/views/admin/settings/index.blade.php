@@ -18,13 +18,7 @@
             </button>
         </div>
 
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show bg-success text-white border-0" role="alert">
-                <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
-
+        @include('admin.partials.alerts')
         <form action="{{ route('admin.settings.store') }}" method="POST" enctype="multipart/form-data" id="settingsForm">
             @csrf
             <div class="row">
