@@ -136,8 +136,9 @@
                         <div class="product-card h-100">
                             <div class="product-img-wrapper" style="height: 250px; overflow: hidden; background: #1a1d21;">
                                 @if ($product->image_path)
-                                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}"
-                                        class="w-100 h-100" style="object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $product->image_path) }}"
+                                        alt="Front view of {{ $product->name }} server" loading="lazy" width="600"
+                                        height="400" class="w-100 h-100" style="object-fit: cover;">
                                 @else
                                     <div class="d-flex h-100 align-items-center justify-content-center">
                                         <i class="fa-solid fa-image fa-4x text-muted opacity-25"></i>
@@ -176,5 +177,5 @@
     @include('site.sections.client-reviews')
 
     @include('site.sections.contact')
-  
+
 @endsection
