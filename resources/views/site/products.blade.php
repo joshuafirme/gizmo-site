@@ -1,5 +1,11 @@
 @extends('site.layouts.app')
 
+@section('seo_title', (request('subcategory') ? ucwords(str_replace('-', ' ', request('subcategory'))) . ' | ' : '') .
+    'Hardware Catalog | ' . $settings->app_name)
+@section('seo_description', 'Browse our extensive catalog of ' . (request('subcategory') ? ucwords(str_replace('-', ' ',
+    request('subcategory'))) : 'enterprise IT infrastructure') . ' solutions.')
+@section('canonical_url', request()->url()) <!-- Strips query parameters to avoid duplicate content -->
+
 @section('panel')
     <!-- Page Header -->
     <section class="page-header py-5 bg-dark position-relative"
@@ -111,7 +117,9 @@
 
                                         @if ($product->image_path)
                                             <img src="{{ asset('storage/' . $product->image_path) }}"
-                                                alt="{{ $product->name }}" class="w-100 h-100" style="object-fit: cover;">
+                                                alt="Front view of {{ $product->name }} server" loading="lazy"
+                                                width="600" height="400" class="w-100 h-100"
+                                                style="object-fit: cover;">
                                         @else
                                             <div class="d-flex h-100 align-items-center justify-content-center">
                                                 <i class="fa-solid fa-image fa-3x text-muted opacity-25"></i>
@@ -190,4 +198,21 @@
             opacity: 1;
         }
     </style>
+@endpush
+
+
+@push('script')
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "{{ $product->name }}",
+            "image": "{{ asset('storage/' . $product->image_path) }}",
+            "description": "{{ $product->description }}",
+            "brand": {
+                "@type": "Brand",
+                "name": "Gizmo Systems"
+            }
+        }
+</script>
 @endpush
