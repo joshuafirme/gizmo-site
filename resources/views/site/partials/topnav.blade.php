@@ -63,7 +63,8 @@
                       </ul>
                   </li>
 
-                  <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#reviews">Reviews</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{ route('reviews') }}">Reviews</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact Us</a></li>
               </ul>
 
              <div class="d-flex align-items-center mt-3 mt-lg-0 ms-lg-3">

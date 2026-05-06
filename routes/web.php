@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/products', [PageController::class, 'products'])->name('products');
+Route::get('/reviews', [PageController::class, 'reviews'])->name('reviews');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('login');

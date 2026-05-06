@@ -18,9 +18,20 @@ class PageController extends Controller
         $whoWeAre = WhoWeAre::where('is_active', true)->latest()->first();
         $aboutUs = AboutUs::where('is_active', true)->latest()->first();
         $reviews = ClientReview::where('is_active', true)->latest()->get();
-        $settings = SystemSetting::latest()->first() ?? new SystemSetting();
 
-        return view('site.about', compact('whoWeAre', 'aboutUs', 'reviews', 'settings'));
+        return view('site.about', compact('whoWeAre', 'aboutUs', 'reviews'));
+    }
+
+    public function reviews()
+    {
+        $reviews = ClientReview::where('is_active', true)->latest()->get();
+
+        return view('site.reviews', compact('reviews'));
+    }
+
+    public function contact()
+    {
+        return view('site.contact');
     }
 
     public function products(Request $request)
