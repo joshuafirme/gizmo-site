@@ -129,7 +129,7 @@
 
 
 @push('script')
-    <script src="{{ asset('assets/js/crud-helper.js') }}"></script>
+    <script src="{{ asset('assets/js/crud-helper.js?v=' . $settings->version) }}"></script>
     <script>
         $(document).ready(function() {
             function createValueRow(val = '') {

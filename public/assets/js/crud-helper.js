@@ -46,7 +46,6 @@
 
             // 4. Populate Inputs (Only if in edit mode)
             if (mode === 'edit') {
-                console.log('data',data)
                 Object.keys(data).forEach(key => {
                     let $field = $modal.find(`[name="${key}"], #${key}`);
                     if ($field.length) {
@@ -54,7 +53,6 @@
                             $field.prop('checked', !!data[key]);
                         } else {
                             $field.val(data[key]);
-                            console.log(data[key])
                         }
                     }
                 });
