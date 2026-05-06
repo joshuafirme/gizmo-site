@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\ClientReviewController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -42,6 +43,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::patch('messages/{message}/toggle-read', [ContactMessageController::class, 'toggleRead'])->name('messages.toggle-read');
     Route::resource('messages', ContactMessageController::class)->only(['index', 'destroy']);
@@ -78,7 +80,3 @@ use App\Http\Controllers\ContactController;
 
 // Public form submission route
 Route::post('/contact/submit', [ContactController::class, 'store'])->name('contact.submit');
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});

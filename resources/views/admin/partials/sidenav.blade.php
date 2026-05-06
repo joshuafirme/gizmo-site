@@ -5,7 +5,7 @@
                 style="color: var(--primary-tech);">CMS</span></h5>
     </div>
     <ul class="sidebar-nav">
-        <li><a href="{{ url('admin/dashboard') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="{{ route('admin.dashboard.index') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
         <li><a href="{{ route('admin.messages.index') }}"><i class="fa-solid fa-message"></i> Contact Messages</a></li>
         <li><a href="{{ route('admin.sliders.index') }}"><i class="fa-solid fa-images"></i> Hero Slider</a></li>
 

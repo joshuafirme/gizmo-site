@@ -3,16 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\ContactMessage;
+use App\Models\User;
+use App\Models\ClientReview;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // $productCount = Product::count();
-        // $reviewCount = ClientReview::where('is_active', true)->count();
-        // $recentProducts = Product::with('subcategory')->latest()->take(5)->get();
+        // 1. High-Level Metrics
+        $stats = [
+            'total_products' => Product::count(),
+            'unread_messages' => ContactMessage::where('is_read', false)->count(),
+            'total_users' => User::count(),
+            'total_reviews' => ClientReview::count(),
+        ];
 
-        return view('admin.dashboard', compact('productCount', 'reviewCount', 'recentProducts'));
+        // 2. Recent Activity (Only grab the 5 most recent for a clean UI)
+        $recentMessages = ContactMessage::latest()->take(5)->get();
+        $recentProducts = Product::with('subcategory.category')->latest()->take(5)->get();
+
+        return view('admin.dashboard', compact('stats', 'recentMessages', 'recentProducts'));
     }
 }
