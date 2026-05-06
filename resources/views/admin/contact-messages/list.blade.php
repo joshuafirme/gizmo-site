@@ -159,6 +159,7 @@
 @endsection
 
 @push('script')
+    <script src="{{ asset('assets/js/crud-helper.js?v=' . $settings->version) }}"></script>
     <script>
         $(document).ready(function() {
             // Intercept the global fill-modal logic specifically for the Read Message modal
