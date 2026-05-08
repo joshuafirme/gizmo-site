@@ -1,8 +1,9 @@
 @extends('site.layouts.app')
 
 @section('panel')
-    <!-- Primary Page H1 (Visually Hidden for Strict SEO Targeting) -->
-    <h1 class="visually-hidden">Your Main SEO Keyword Here (e.g., Enterprise IT Hardware & Solutions)</h1>
+    <h1 class="visually-hidden">
+        Enterprise Hardware, Servers, and IT Infrastructure Solutions
+    </h1>
 
     <!-- Hero Carousel Section -->
     @if ($sliders->isNotEmpty())
@@ -136,6 +137,13 @@
             <div class="text-center mb-5" data-aos="fade-up">
                 <p class="text-tech text-uppercase fw-bold h6">Hardware Catalog</p>
                 <h2 class="display-5 fw-bold text-theme">Featured Equipment</h2>
+                <p class="text-muted mx-auto mt-3" style="max-width: 800px;">
+                    Explore our selection of enterprise servers, networking hardware,
+                    storage systems, cybersecurity appliances, and IT infrastructure
+                    equipment sourced from trusted global technology manufacturers.
+                    Our solutions are designed to support scalability, reliability,
+                    and high-performance enterprise operations.
+                </p>
                 <div class="mx-auto mt-3" style="width: 50px; height: 3px; background-color: var(--primary-tech);"></div>
             </div>
 

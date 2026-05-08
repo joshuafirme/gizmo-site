@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gizmo System Solutions Inc. | Enterprise Hardware & Servers</title>
-
-    <title>@yield('seo_title', $settings->app_name . ' | Enterprise IT Infrastructure')</title>
+    <title>@yield('seo_title', ($settings->app_name ?? 'Gizmo System Solutions Inc.') . ' | Enterprise Hardware & Servers')</title>
     <meta name="description" content="@yield('seo_description', $settings->description ?? 'Global supplier of enterprise-grade hardware, servers, and networking equipment.')">
     <meta name="author" content="{{ $settings->app_name ?? 'Gizmo Systems' }}">
 
