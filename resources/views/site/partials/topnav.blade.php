@@ -2,8 +2,7 @@
   <nav id="main-nav" class="navbar navbar-expand-lg fixed-top py-3">
       <div class="container">
           <a class="navbar-brand text-theme" href="#">
-              <img src="{{ asset('storage/' . $settings->logo_path) }}" width="70px;" alt="">
-              <i class="fa-solid fa-microchip text-tech me-2"></i>GIZMO<span class="text-tech">SYSTEMS</span>
+              <img src="{{ asset('storage/' . $settings->logo_path) }}" width="70px;" alt=""> GIZMO<span class="text-tech">SYSTEMS</span>
           </a>
 
           <div class="d-flex align-items-center">
