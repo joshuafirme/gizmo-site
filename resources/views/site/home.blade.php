@@ -118,7 +118,7 @@
                                     <div class="feature-icon-box text-center h-100 p-4 border border-secondary rounded">
                                         <i
                                             class="fa-solid {{ $index == 0 ? 'fa-handshake' : 'fa-lightbulb' }} fa-3x text-tech mb-3"></i>
-                                        <h3 class="h5 text-theme">Core Value</h3>
+                                        <p class="h5 text-theme fw-bold mb-2">Core Value</p>
                                         <p class="text-muted small mb-0">{{ $value }}</p>
                                     </div>
                                 </div>
@@ -175,11 +175,6 @@
                         <p>No featured products available at the moment.</p>
                     </div>
                 @endforelse
-            </div>
-
-            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
-                <a href="#contact" class="btn btn-tech-alt px-4 py-2 rounded-pill">Download Full PDF Catalog <i
-                        class="fa-solid fa-file-pdf ms-2"></i></a>
             </div>
         </div>
     </section>
