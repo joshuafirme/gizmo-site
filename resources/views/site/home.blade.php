@@ -1,15 +1,18 @@
 @extends('site.layouts.app')
 
 @section('panel')
+    <!-- Primary Page H1 (Visually Hidden for Strict SEO Targeting) -->
+    <h1 class="visually-hidden">Your Main SEO Keyword Here (e.g., Enterprise IT Hardware & Solutions)</h1>
+
     <!-- Hero Carousel Section -->
     @if ($sliders->isNotEmpty())
-        <section id="home" class="hero-carousel">
+        <section id="home" class="hero-carousel" aria-label="Hero Carousel">
             <div id="techCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <!-- Dynamic Indicators -->
                 <div class="carousel-indicators">
                     @foreach ($sliders as $key => $slider)
                         <button type="button" data-bs-target="#techCarousel" data-bs-slide-to="{{ $key }}"
-                            class="{{ $loop->first ? 'active' : '' }}"></button>
+                            class="{{ $loop->first ? 'active' : '' }}" aria-label="Slide {{ $key + 1 }}"></button>
                     @endforeach
                 </div>
 
@@ -20,16 +23,20 @@
                             <div class="hero-overlay"></div>
                             <div class="container h-100 position-relative">
                                 <div class="carousel-caption w-md-50" data-aos="fade-right" data-aos-duration="1000">
-                                    <h6 class="text-tech text-uppercase fw-bold mb-3 tracking-widest">
+                                    <p class="text-tech text-uppercase fw-bold mb-3 tracking-widest h6">
                                         {{ $slider->title_badge }}
-                                    </h6>
-                                    <h1 class="display-3 fw-bold mb-4 text-white">{!! nl2br(e($slider->heading)) !!}</h1>
+                                    </p>
+                                    <h2 class="display-3 fw-bold mb-4 text-white">{!! nl2br(e($slider->heading)) !!}</h2>
                                     @if ($slider->description)
                                         <p class="lead mb-4 text-light">{{ $slider->description }}</p>
                                     @endif
                                     @if ($slider->button_text && $slider->button_link)
-                                        <a href="{{ $slider->button_link }}"
-                                            class="btn btn-tech px-5 py-3">{{ $slider->button_text }}</a>
+                                        <a href="{{ $slider->button_link }}" class="btn btn-tech px-5 py-3"
+                                            aria-label="{{ $slider->button_text }} about {{ strip_tags($slider->heading) }}"
+                                            @if (Str::startsWith($slider->button_link, ['http://', 'https://']) &&
+                                                    !Str::contains($slider->button_link, request()->getHost())) target="_blank" rel="noopener noreferrer" @endif>
+                                            {{ $slider->button_text }}
+                                        </a>
                                     @endif
                                 </div>
                             </div>
@@ -40,11 +47,13 @@
                 @if ($sliders->count() > 1)
                     <button class="carousel-control-prev" type="button" data-bs-target="#techCarousel"
                         data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#techCarousel"
                         data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
                     </button>
                 @endif
             </div>
@@ -52,13 +61,13 @@
     @endif
 
     <!-- Company Introduction -->
-    <section id="about" class="py-5 bg-tech-dark">
+    <section id="about" class="py-5 bg-tech-dark" aria-label="About Us">
         <div class="container py-5">
             <div class="row align-items-center mb-5">
                 <!-- Who We Are (Left Side) -->
                 <div class="col-lg-6" data-aos="fade-right">
                     @if ($whoWeAre)
-                        <h6 class="text-tech text-uppercase fw-bold">{{ $whoWeAre->badge_text }}</h6>
+                        <p class="text-tech text-uppercase fw-bold h6">{{ $whoWeAre->badge_text }}</p>
                         <h2 class="display-5 fw-bold mb-4 text-theme">{{ $whoWeAre->heading }}</h2>
                         <div class="text-muted fs-5 mb-4">
                             {!! $whoWeAre->main_content !!}
@@ -88,7 +97,7 @@
                             <div class="col-md-6">
                                 <div class="feature-icon-box text-center h-100 p-4 border border-secondary rounded">
                                     <i class="fa-solid fa-bullseye fa-3x text-tech mb-3"></i>
-                                    <h4 class="h5 text-theme">Our Mission</h4>
+                                    <h3 class="h5 text-theme">Our Mission</h3>
                                     <p class="text-muted small mb-0">
                                         {{ $content['mission'] ?? 'To bridge the gap between technology and growth.' }}</p>
                                 </div>
@@ -97,7 +106,7 @@
                             <div class="col-md-6">
                                 <div class="feature-icon-box text-center h-100 p-4 border border-secondary rounded">
                                     <i class="fa-solid fa-eye fa-3x text-tech mb-3"></i>
-                                    <h4 class="h5 text-theme">Our Vision</h4>
+                                    <h3 class="h5 text-theme">Our Vision</h3>
                                     <p class="text-muted small mb-0">
                                         {{ $content['vision'] ?? 'To be the global standard for IT supply.' }}</p>
                                 </div>
@@ -109,7 +118,7 @@
                                     <div class="feature-icon-box text-center h-100 p-4 border border-secondary rounded">
                                         <i
                                             class="fa-solid {{ $index == 0 ? 'fa-handshake' : 'fa-lightbulb' }} fa-3x text-tech mb-3"></i>
-                                        <h4 class="h5 text-theme">Core Value</h4>
+                                        <h3 class="h5 text-theme">Core Value</h3>
                                         <p class="text-muted small mb-0">{{ $value }}</p>
                                     </div>
                                 </div>
@@ -122,10 +131,10 @@
     </section>
 
     <!-- Featured Products Section -->
-    <section id="products" class="py-5">
+    <section id="products" class="py-5" aria-label="Featured Products">
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h6 class="text-tech text-uppercase fw-bold">Hardware Catalog</h6>
+                <p class="text-tech text-uppercase fw-bold h6">Hardware Catalog</p>
                 <h2 class="display-5 fw-bold text-theme">Featured Equipment</h2>
                 <div class="mx-auto mt-3" style="width: 50px; height: 3px; background-color: var(--primary-tech);"></div>
             </div>
@@ -133,7 +142,7 @@
             <div class="row g-4">
                 @forelse($featuredProducts as $product)
                     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                        <div class="product-card h-100">
+                        <article class="product-card h-100">
                             <div class="product-img-wrapper" style="height: 250px; overflow: hidden; background: #1a1d21;">
                                 @if ($product->image_path)
                                     <img src="{{ asset('storage/' . $product->image_path) }}"
@@ -151,14 +160,15 @@
                                         class="badge badge-alt rounded-pill">{{ $product->subcategory->name ?? 'Uncategorized' }}</span>
                                     <i class="fa-solid {{ $product->icon_class ?? 'fa-box' }} fs-5 text-tech"></i>
                                 </div>
-                                <h4 class="h5 text-theme mb-3">{{ $product->name }}</h4>
+                                <h3 class="h5 text-theme mb-3">{{ $product->name }}</h3>
                                 <p class="text-muted small mb-4">{{ Str::limit($product->description, 100) }}</p>
                                 <a href="#contact" class="btn btn-outline-secondary btn-sm w-100 text-theme"
-                                    style="border-color: var(--border-color);">
+                                    style="border-color: var(--border-color);"
+                                    aria-label="Inquire about {{ $product->name }}">
                                     Inquire Now <i class="fa-solid fa-arrow-right ms-2 text-tech"></i>
                                 </a>
                             </div>
-                        </div>
+                        </article>
                     </div>
                 @empty
                     <div class="col-12 text-center text-muted">
