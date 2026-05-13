@@ -202,7 +202,8 @@
 
 
 @push('script')
-    <script type="application/ld+json">
+    @if ($product)
+        <script type="application/ld+json">
         {
             "@context": "https://schema.org/",
             "@type": "Product",
@@ -214,5 +215,6 @@
                 "name": "Gizmo Systems"
             }
         }
-</script>
+        </script>
+    @endif
 @endpush
