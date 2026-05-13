@@ -202,7 +202,7 @@
 
 
 @push('script')
-    @if ($product)
+    @if (isset($product))
         <script type="application/ld+json">
         {
             "@context": "https://schema.org/",
